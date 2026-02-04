@@ -39,21 +39,22 @@ export const PostDetails: React.FC<Props> = ({ post }) => {
     return client.delete(`/comments/${commentId}`);
   };
 
-  const handleCommentDelete = (commentId: number) => {
+  const handleCommentDelete = (comment: Comment) => {
     setLoading(true);
     setError(false);
+    setComments(cur => cur?.filter(comment => comment.id !== comment.id))
 
-    return deleteComment(commentId)
-      .then(res => {
-        if (res) {
-          setComments(cur => cur?.filter(comment => comment.id !== commentId));
-        }
+    return deleteComment(comment.id)
+      .catch(() => {
+        setError(true)
+        setComments(cur => [...cur, comment])
       })
-      .catch(() => setError(true))
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
+    setWriteCommentStatus(false);
+
     if (!post) {
       return setComments([]);
     }
@@ -96,19 +97,22 @@ export const PostDetails: React.FC<Props> = ({ post }) => {
                 comments={comments}
                 onDelete={handleCommentDelete}
               />
-              <button
-                data-cy="WriteCommentButton"
-                type="button"
-                className="button is-link"
-                onClick={() => setWriteCommentStatus(true)}
-              >
-                Write a comment
-              </button>
             </React.Fragment>
           ) : (
             ''
           )}
         </div>
+
+        {!writeCommentStatus && (
+          <button
+            data-cy="WriteCommentButton"
+            type="button"
+            className="button is-link"
+            onClick={() => setWriteCommentStatus(true)}
+          >
+            Write a comment
+          </button>
+        )}
 
         {writeCommentStatus && !error ? (
           <NewCommentForm

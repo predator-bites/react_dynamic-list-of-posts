@@ -46,7 +46,7 @@ export const NewCommentForm: React.FC<Props> = ({
   const validate = () => {
     let status = true;
 
-    if (!name) {
+    if (!name.trim()) {
       setNameError(true);
       status = false;
     }
@@ -56,7 +56,7 @@ export const NewCommentForm: React.FC<Props> = ({
       status = false;
     }
 
-    if (!text) {
+    if (!text.trim()) {
       setTextError(true);
       status = false;
     }

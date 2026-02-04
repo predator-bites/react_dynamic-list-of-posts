@@ -36,8 +36,6 @@ export const PostsList: React.FC<Props> = ({
   selectedPost,
   // error,
 }) => {
-  const buttonText = selectedPost ? 'Close' : 'Open';
-
   const onClick = (post: Post) => {
     onPostSelect(cur => {
       if (cur?.id === post.id) {
@@ -70,7 +68,7 @@ export const PostsList: React.FC<Props> = ({
                     className="button is-link is-light"
                     onClick={() => onClick(post)}
                   >
-                    {buttonText}
+                    {selectedPost ? 'Close' : 'Open'}
                   </button>
                 </td>
               </tr>

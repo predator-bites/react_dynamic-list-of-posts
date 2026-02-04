@@ -3,7 +3,7 @@ import { Comment } from '../types/Comment';
 
 interface Props {
   comments: Comment[] | null;
-  onDelete: (commentId: number) => Promise<unknown>;
+  onDelete: (comment: Comment) => Promise<unknown>;
 }
 
 export const CommentsList: React.FC<Props> = ({ comments, onDelete }) => {
@@ -24,7 +24,7 @@ export const CommentsList: React.FC<Props> = ({ comments, onDelete }) => {
               type="button"
               className="delete is-small"
               aria-label="delete"
-              onClick={() => onDelete(comment.id)}
+              onClick={() => onDelete(comment)}
             >
               delete button
             </button>
