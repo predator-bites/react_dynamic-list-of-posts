@@ -5,7 +5,6 @@ interface Props {
   posts: Post[] | null;
   onPostSelect: React.Dispatch<React.SetStateAction<Post | null>>;
   selectedPost: Post | null;
-  // error: boolean;
 }
 interface TableHeaderProps {
   length: number;
@@ -68,7 +67,7 @@ export const PostsList: React.FC<Props> = ({
                     className="button is-link is-light"
                     onClick={() => onClick(post)}
                   >
-                    {selectedPost ? 'Close' : 'Open'}
+                    {selectedPost?.id === post.id ? 'Close' : 'Open'}
                   </button>
                 </td>
               </tr>

@@ -42,7 +42,7 @@ export const PostDetails: React.FC<Props> = ({ post }) => {
   const handleCommentDelete = (comment: Comment) => {
     setLoading(true);
     setError(false);
-    setComments(cur => cur?.filter(comment => comment.id !== comment.id))
+    setComments(cur => cur?.filter(com => com.id !== comment.id))
 
     return deleteComment(comment.id)
       .catch(() => {
